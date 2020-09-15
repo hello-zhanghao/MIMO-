@@ -1,16 +1,19 @@
-\contentsline {section}{\numberline {1}MIMO技术背景}{2}{section.1}%
-\contentsline {section}{\numberline {2}MIMO系统框架}{2}{section.2}%
-\contentsline {section}{\numberline {3}MIMO检测}{2}{section.3}%
-\contentsline {section}{\numberline {4}MIMO信道}{2}{section.4}%
-\contentsline {section}{\numberline {5}MIMO信道检测}{2}{section.5}%
-\contentsline {section}{\numberline {6}MIMO CSI-feedback}{2}{section.6}%
-\contentsline {section}{\numberline {7}MIMO预编码}{2}{section.7}%
-\contentsline {subsection}{\numberline {7.1}点对点MIMO系统模型}{2}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2}系统容量}{2}{subsection.7.2}%
-\contentsline {subsection}{\numberline {7.3}传输侧无CSI}{3}{subsection.7.3}%
-\contentsline {subsection}{\numberline {7.4}传输侧有CSI}{3}{subsection.7.4}%
-\contentsline {subsection}{\numberline {7.5}MIMO注水算法}{5}{subsection.7.5}%
-\contentsline {section}{\numberline {8}Latex语法学习}{5}{section.8}%
-\contentsline {subsection}{\numberline {8.1}伪代码}{5}{subsection.8.1}%
-\contentsline {paragraph}{algorithmic和algorithmics}{5}{paragraph*.2}%
-\contentsline {subsection}{\numberline {8.2}超链接}{5}{subsection.8.2}%
+\contentsline {section}{\numberline {1}MIMO信道}{2}{section.1}%
+\contentsline {section}{\numberline {2}MIMO信道估计}{2}{section.2}%
+\contentsline {section}{\numberline {3}MIMO CSI-feedback}{2}{section.3}%
+\contentsline {section}{\numberline {4}MIMO检测}{2}{section.4}%
+\contentsline {subsection}{\numberline {4.1}经典检测方法}{2}{subsection.4.1}%
+\contentsline {subsubsection}{\numberline {4.1.1}ZF检测}{2}{subsubsection.4.1.1}%
+\contentsline {subsubsection}{\numberline {4.1.2}MMSE检测}{2}{subsubsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.2}ZF-SIC检测}{3}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}MMSE-SIC检测}{3}{subsection.4.3}%
+\contentsline {section}{\numberline {5}MIMO预编码}{3}{section.5}%
+\contentsline {subsection}{\numberline {5.1}点对点MIMO系统模型}{3}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}系统容量}{3}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}传输侧无CSI}{4}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}传输侧有CSI}{4}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}MIMO注水算法}{6}{subsection.5.5}%
+\contentsline {section}{\numberline {6}Latex语法学习}{6}{section.6}%
+\contentsline {subsection}{\numberline {6.1}伪代码}{6}{subsection.6.1}%
+\contentsline {paragraph}{algorithmic和algorithmics}{6}{paragraph*.2}%
+\contentsline {subsection}{\numberline {6.2}超链接}{6}{subsection.6.2}%

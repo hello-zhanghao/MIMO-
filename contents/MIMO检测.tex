@@ -1,0 +1,46 @@
+\section{MIMO检测}
+\subsection{经典检测方法}
+假设接收端已知CSI $H^{UL}$，系统模型表示为：
+\begin{equation}
+y_{MAC}=H^{UL}x+z 简化为 y=Hx+z=H_1x_1+H_2x_2+\cdots+H_Kx_K+z
+\end{equation}
+\subsubsection{ZF检测}
+\begin{equation}
+    \hat{x}_{ZF}=G_{ZF}y
+\end{equation}
+其中
+$$
+G_{ZF}=(H^HH)^{-1}H^H
+$$
+\subsubsection{MMSE检测}
+
+$$
+\hat{x}_{MMSE}=G_{MMSE}y
+$$
+
+其中
+$$
+G_{MMSE}=\underset{G}{\arg min}E\{\|Gy-x\|^2\}=(H^HH+\sigma^2I_{Nt*K})^{-1}H^H
+$$
+
+- *regularized channel inversion*
+$$
+\underline{H}=\begin{bmatrix}
+H \\
+\sigma^2I_{N_t}
+\end{bmatrix} and  \ \ 
+\underline{y}=
+\begin{bmatrix}
+y \\
+0_{N_t\times1}
+\end{bmatrix}
+$$
+Then
+$$
+G_{MMSE}=(\underline{H}^H\underline{H})^{-1}\underline{H}^H
+$$
+
+\subsection{ZF-SIC检测}
+
+\subsection{MMSE-SIC检测}
+
