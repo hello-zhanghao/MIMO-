@@ -1,46 +1,75 @@
 \section{MIMO检测}
+$$
+y=Hx+z
+$$
+
+\begin{enumerate}
+    \item  参考论文\cite{2019Massive} \par
+        MIMO综述，主要综述了关于MIMO检测的问题
+    \item 参考论文2
+\end{enumerate}
 \subsection{经典检测方法}
 假设接收端已知CSI $H^{UL}$，系统模型表示为：
 \begin{equation}
 y_{MAC}=H^{UL}x+z 简化为 y=Hx+z=H_1x_1+H_2x_2+\cdots+H_Kx_K+z
 \end{equation}
+\subsubsection{MF检测}
+\begin{equation}
+\hat{x}_{MF}=H^Hy
+\end{equation}
+匹配滤波器，又称最大比合并，目标是最大化接收信噪比。
+\begin{itemize}
+    \item 优点：复杂度低，不需要矩阵求逆运算
+    \item 缺点：对于病态矩阵（ill-conditioned），检测性能严重劣化
+\end{itemize}
+% \end{enum}
+    
 \subsubsection{ZF检测}
 \begin{equation}
     \hat{x}_{ZF}=G_{ZF}y
 \end{equation}
-其中
-$$
-G_{ZF}=(H^HH)^{-1}H^H
-$$
+其中$G_{ZF}=(H^HH)^{-1}H^H$，目标是最大化接收信干噪比（received signal-to-interference ration）
+\begin{itemize}
+    \item 优点：性能优于MF（复杂度较MF高）
+    \item 缺点：对忽略噪声的影响，与MF类似，会有噪声加强的副作用
+\end{itemize}
 \subsubsection{MMSE检测}
+MMSE检测是优化问题的解：
+\begin{equation}
+\begin{aligned}
+    G_{MMSE}&=\underset{G\in C^{N \times K}}{\arg min}\|x-Gy\|^2 \\
+    &= \underset{G}{\arg min}E\{\|Gy-x\|^2\}=(H^HH+\sigma^2I_{Nt*K})^{-1}H^H
+\end{aligned}
+\end{equation}
+\begin{equation}
+    \hat{x}_{MMSE}=G_{MMSE}y
+\end{equation} \\
+其中$G_{MMSE}=$, 换一种表达方式：
 
-$$
-\hat{x}_{MMSE}=G_{MMSE}y
-$$
-
-其中
-$$
-G_{MMSE}=\underset{G}{\arg min}E\{\|Gy-x\|^2\}=(H^HH+\sigma^2I_{Nt*K})^{-1}H^H
-$$
-
-- *regularized channel inversion*
-$$
-\underline{H}=\begin{bmatrix}
-H \\
-\sigma^2I_{N_t}
-\end{bmatrix} and  \ \ 
-\underline{y}=
-\begin{bmatrix}
-y \\
-0_{N_t\times1}
-\end{bmatrix}
-$$
+\emph{regularized channel inversion}
+\begin{equation}
+    \underline{H}=\begin{bmatrix}
+        H \\
+        \sigma^2I_{N_t}
+        \end{bmatrix} and  \ \ 
+        \underline{y}=
+        \begin{bmatrix}
+        y \\
+        0_{N_t\times1}
+        \end{bmatrix} 
+\end{equation}
 Then
-$$
-G_{MMSE}=(\underline{H}^H\underline{H})^{-1}\underline{H}^H
-$$
+\begin{equation}
+    G_{MMSE}=(\underline{H}^H\underline{H})^{-1}\underline{H}^H
+\end{equation}
+\begin{itemize}
+    \item 优点：有效解决了ZF和MF导致的噪声加强问题，能够在噪声功率较大（信噪比较低时）时获得较大的性能增益
+    \item 缺点：需要对噪声功率谱密度的先验信息，且需要矩阵求逆
+\end{itemize}
 
-\subsection{ZF-SIC检测}
+\subsubsection{ZF-SIC检测}
 
-\subsection{MMSE-SIC检测}
+\subsubsection{MMSE-SIC检测}
+\subsubsection{总结}
+最早的大规模MIMO检测器是在2008年由Vardhan et al. 提出的，
 
