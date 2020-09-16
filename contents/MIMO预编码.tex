@@ -153,3 +153,59 @@
     Step3:若分配到最小增益的信道能量为负值，即设$\gamma_{r-p+1}=0,p=p+1$，转至Step1 \\
     若任意$\gamma_i$非负，即得到最佳注水功率分配策略
 \end{algorithm}
+
+\subsection{经典预编码算法}
+参考文献\cite{2017Massive}
+\paragraph{起源}
+MIMO无线通信技术最早广泛应用于WiFi技术上（IEEE 802.11ac/n),WiMax技术（IEEE 802.16e）,4G(LTE/LTE-A)等系统。最早的MIMO思想来源于点对点的MIMO系统，接着发展出了MU-MIMO,每个用户配备一个单天线。
+\subsubsection{线性预编码}
+\paragraph{Matched Filter(MF)}
+\begin{equation}
+    W_{MF} = \sqrt{\alpha} H^H
+\end{equation}
+\paragraph{ZF}
+\begin{equation}
+    W_{ZF} = \sqrt{\alpha} H(H^HH)^{-1}
+\end{equation}
+\paragraph{RZF(或MMSE)}
+\begin{equation}
+    W_{MMSE} = \sqrt{\alpha} H(H^HH+X+\lambda I_K)^{-1}
+\end{equation}
+\paragraph{TPE}
+\begin{equation}
+    W_{TPE} = \sum_{j=0}^{J-1}w_j(H^HH)^jH^H
+\end{equation}
+\paragraph{优缺点对比}
+\par
+优缺点如图\ref{kjdfgshafgdad}所示。
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.99\textwidth]{线性precoder优缺点对比.PNG}
+    \caption{优缺点对比}
+    \label{kjdfgshafgdad}
+\end{figure}
+
+\subsection{基于AI的预编码算法}
+\begin{enumerate}
+    \item \emph{Kyeongbo Kong, Woo-Jin Song, Moonsik Min, Deep-learning-based precoding in multiuser MIMO downlink channels with limited feedback, 2008.0417}\par
+        基于深度学习的均衡，反馈和预编码，下行MU-MIMO系统。基站侧发送预编码使用transmitter DNN实现，每个receiver DNN引入二值化层来模仿量化过程，从而使能端到端训练。由于二值化层的引入导致网络的梯度失真从而容易陷入局部极小值，网络训练过程中引入了辅助训练网络作为教导网络，有效避免陷入局部极小值。与传统的线性预编码相比，该网络通过端到端训练达到了更高的和速率。
+    \item \emph{Novel MMSE Precoder and Decoder Designs Subject to Per-antenna Power Constraint
+    for Uplink Multiuser MIMO Systems, I-Tai Lu, Jialing Li and Enoch Lu, 2009}\par
+        关于多用户MIMO上行预编码的文章，理论比较多。文中提到，最经典的点对点MIMO系统在发送总功率一定时，最优预编码矩阵有最优解，但是在每根天线的功率有限或扩展到多用户MIMO,闭式解不存在，对于MU-MIMO，每个用户总功率有限时，可以通过两种方法寻找数值解，TCIO和GIA。
+    \item \emph{Evolution of Uplink MIMO for LTE-Advanced}\par
+        LTE中上行MIMO的技术介绍
+    \item \emph{Deep Learning based Hybrid Precoding for mmWave Massive MIMO system using ComcepNet, 2020.7}\par
+        提出了新的预编码网络结构”ComcepNet“，该网络结合了复数卷积块和 Inception 网络的特征，展现了比autoprecoder更好的性能。
+    \item \emph{Deep Learning Based Precoder Design in MIMO Systems with Finite-Alphabet Inputs,2020}\par 
+        有限元预编码
+    \item \emph{Deep Learning for Distributed Channel Feedback and Multiuser Precoding in FDD Massive MIMO, 20.07}\par
+        多用户信道估计和反馈问题可以视为一个分布式信源编码问题。与传统的每个用户独立估计信道信息不同，文章提出联合设计导频并且接收端使用DNN直接将接收导频映射为反馈bit，然后基站将所有用户的反馈bit直接映射为预编码矩阵，可以显著低提高整机性能。文章进一步提出鲁棒化设计策略，并且泛化DNN结构使之适应可变用户和可变的反馈bit。Numerical results show that the DNN-based approach with short pilot sequences and very limited feedback overhead can already approach the performance of conventional linear precoding schemes with full CSI.
+    \item \emph{Deep Unfolding for Communications Systems: A Survey and Some New Directions,2019}\par 
+        本文综述了深度展开的原理，并讨论了其在通信系统中的最新应用，重点讨论了多天线(MIMO)无线系统中的检测和预编码以及纠错码的信念传播译码。
+    \item \emph{Deep reinforcement learning approach to MIMO precoding problem: Optimality and Robustness, 2020}\par 
+        强化学习
+    \item \emph{Model-Driven Deep Learning for Massive Multiuser MIMO Constant Envelope Precoding} \par 
+        常包络预编码设计可以显著降低硬件损耗和功率损耗，但是已有的常包络预编码算法计算复杂度高。文章提出使用模型驱动的方式将深度学习与conjugate gradient algorithm结合，原始迭代算法展开并添加可训练参数，通过数据学习有效的参数。仿真结果表明该网络能有效抑制多用户干扰和计算复杂度。
+    \item \emph{}
+    
+\end{enumerate}

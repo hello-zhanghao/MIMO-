@@ -6,3 +6,29 @@ algorithmic和algorithmicx，这两个包很像，很多命令都是一样的，
 还有algorithm2e,latex的与algorithm相关的包常用的有几个，algorithm、algorithmic、algorithmicx、algorithm2e，可以大致分成三类，或者说三个排版环境。最原始的是使用algorithm+algorithmic，这个最早出现，也是最难用的，需要自己定义一些指令。第二个排版环境是algorithm+algorithmicx，algorithmicx提供了一些宏定义和一些预定义好了的环境(layout)，指令类似algorithmic。第三个是algorithm2e，只需要一个包，使用起来和编程的感觉很像，也是我更倾向使用的包。下面是使用algorithm2e的例子。[1]
 \subsection{超链接}
 需要的宏包 hyperref, 
+
+\subsection{插入图片}
+
+\subsection{tikz绘图}
+\begin{tikzpicture}
+    \draw[red, -latex](0,0)--(5,5);
+    \draw (5,5) rectangle (6,7);
+    % \draw (5,5) circle (2, 3);
+\end{tikzpicture}
+% \mint{python}|test.py|		% 这里以Python语言为例。双竖线中是文件名
+% \begin{minted}[mathescape,	% 中括号中的内容用于控制代码显示的格式，可以依照喜好修改
+%                linenos,
+%                numbersep=5pt,
+%                gobble=2,
+%                frame=lines,
+%                framesep=2mm]{python}
+% 	...		% 此处插入代码块，需要缩进
+% \end{minted}
+\begin{lstlisting}[language={java}]
+public class Main {
+    public static void main(String[] args)
+    {
+        System.out.println("Hello,World");
+    }
+}
+\end{lstlisting}

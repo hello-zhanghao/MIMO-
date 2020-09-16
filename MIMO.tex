@@ -4,7 +4,23 @@
 \usepackage[colorlinks,linkcolor=red]{hyperref}  % 超链接宏包
 \usepackage[ruled]{algorithm2e}   % 伪代码专用宏包
 \usepackage{cite}  % 文献引用宏包
+\usepackage{tikz}  % Tikz绘图包，基于底层的pgf
+\usepackage{graphicx}      % 插入图片引用宏包
+\usepackage{listingsutf8}  % 插入代码使用的宏包
+\usepackage{color}         % 颜色宏包    
 
+\graphicspath{{figures/}}  % 指定图片目录, 与graphicx宏包一起使用
+\setmainfont{Times New Roman}  % 设置英文字体 
+\lstset{
+    % backgroundcolor=\color{red!50!green!50!blue!50},%代码块背景色为浅灰色
+    rulesepcolor= \color{gray}, %代码块边框颜色
+    breaklines=true,  %代码过长则换行
+    numbers=left, %行号在左侧显示
+    numberstyle= \small,%行号字体
+    keywordstyle= \color{blue},%关键字颜色
+    commentstyle=\color{gray}, %注释颜色
+    frame=shadowbox%用方框框住代码块
+}
 % \usepackage{algorithm}
 % \usepackage{algpseudocode}
 % \usepackage{amsmath}
@@ -26,10 +42,12 @@
 % \input{contents/MIMO信道.tex}
 % \input{contents/MIMO信道估计.tex}
 % \input{contents/MIMO信道反馈.tex}
-\input{contents/MIMO检测.tex}
-% \input{contents/MIMO预编码.tex}
-% \input{contents/Latex语法学习.tex}
-dd 
+% \input{contents/MIMO检测.tex}
+\input{contents/MIMO预编码.tex}
+\input{contents/Latex语法学习.tex}
+
+
+% 参考文献
 \bibliographystyle{plain}      % 设置引用格式的风格
 \bibliography{reference.bib}   % 引用自己的bib文件，保证在当前文件的目录下
 \end{document}
