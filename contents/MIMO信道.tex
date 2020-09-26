@@ -1,1 +1,105 @@
 \section{MIMO信道}
+\subsection{CDL信道}
+\begin{lstlisting}[language={matlab}]
+    % DelayProfile: 时延谱，可选'CDL-A' (default) | 'CDL-B' | 'CDL-C' | 'CDL-D' | 'CDL-E' | 'Custom'
+    %----------------------------------------------------------------
+    % 当DelayProfile为Custom时，下述参数有效
+    % AveragePathGains — Average path gains in dB
+    % AnglesAoA — Azimuth of arrival angle in degrees
+    % AnglesAoD — Azimuth of departure angle in degrees
+    % AnglesZoA — Zenith of arrival angle in degrees
+    % AnglesZoD — Zenith of departure angle in degrees
+    % HasLOSCluster — Line of sight cluster of the delay profile
+    % KFactorFirstCluster — K-factor in first cluster of delay profile in dB
+    % AngleSpreads — Scaled or cluster-wise RMS angle spreads in degrees（to enable this property, set DelayProfile to 'Custom' or AngleScaling to true.）
+    % XPR — Cross-polarization power ratio in dB
+    % NumStrongestClusters — Number of strongest clusters to split into subclusters 0 (default) | numeric scalar
+    % ClusterDelaySpread — Cluster delay spread in seconds
+    %-------------------------------------------------------------------
+    % AngleScaling — Apply scaling of angles
+    % false (default) | true
+    % 当DelayProfile为true时，下述参数有效
+    % MeanAngles — Scaled mean angles in degrees [0.0 0.0 0.0 0.0] (default) | four-element row vector
+    %------------------------------------------------------------------
+    % DelaySpread — Desired RMS delay spread in seconds (Use this property to
+    % specify the delay offset between subclusters for clusters split into subclusters. See TR 38.901 Section 7.5, Step 11.)
+    % CarrierFrequency — Carrier frequency in Hz 4e9 (default) | numeric scalar
+    % MaximumDopplerShift — Maximum Doppler shift in Hz 5 (default) | nonnegative numeric scalar
+    % UTDirectionOfTravel — User terminal direction of travel in degrees
+    % KFactorScaling — K-factor scaling false (default) | true
+    % KFactor — Desired K-factor for scaling in dB 9.0 (default) | numeric scalar
+    % SampleRate — Sample rate of input signal in Hz 30.72e6 (default) | positive numeric scalar
+    % TransmitAntennaArray — Transmit antenna array characteristics structure
+    % ReceiveAntennaArray — Receive antenna array characteristics structure
+    % SampleDensity — Number of time samples per half wavelength 64 (default) | Inf | numeric scalar
+    % NormalizePathGains — Normalize path gains true (default) | false
+    % InitialTime — Time offset of fading process in seconds 0.0 (default) | numeric scalar
+    % RandomStream — Source of random number stream
+    % Seed — Initial seed of mt19937ar random number stream
+    % ChannelFiltering — Fading channel filtering
+    % NumTimeSamples — Number of time samples
+    % NormalizeChannelOutputs — Normalize channel outputs by the number of receive antennas
+    % 信道估计返回值
+    % Perfect channel estimate, returned as an NSC-by-NSYM-by-NR-by-NT complex array, where:
+    % 
+    % NSC is the number of subcarriers.
+    % 
+    % NSYM is the number of OFDM symbols.
+    % 
+    % NR is the number of receive antennas.
+    % 
+    % NT is the number of transmit antennas.
+    
+    
+    clear;
+    v = 15.0;                    % UT velocity in km/h
+    fc = 4e9;                    % carrier frequency in Hz
+    c = physconst('lightspeed'); % speed of light in m/s
+    fd = (v*1000/3600)/c*fc;     % UT max Doppler frequency in Hz
+    
+    % CDL配置
+    cdl = nrCDLChannel;  % creat CDL对象
+    cdl.DelayProfile = 'CDL-D';    % 选择典型信道场景
+    cdl.DelaySpread = 10e-9;       % 时延扩展因子
+    cdl.CarrierFrequency = fc;     % 载波频率，
+    cdl.MaximumDopplerShift = fd;  % 最大多普勒频偏
+    cdl.TransmitAntennaArray.Size = [2 2 1 1 1];  % 发送天线配置
+    cdl.ReceiveAntennaArray.Size = [2 2 2 1 1];   % 接收天线配置
+    
+    % 发送信号，Create a random waveform of 1 subframe duration with 8 antennas.
+    SR = 15.36e6;  
+    T = SR * 1e-3;  % 一个子帧（1ms）信号采样数
+    cdl.SampleRate = SR;  % 输入信号采样率
+    cdlinfo = info(cdl);
+    Nt = cdlinfo.NumTransmitAntennas;
+    txWaveform = complex(randn(T,Nt),randn(T,Nt)); % 发送信号
+    
+    % 过信道
+    [~,pathGains,sampleTimes] = cdl(txWaveform);
+    pathFilters = getPathFilters(cdl);
+    
+    % 信道估计及可视化
+    NRB = 100;  % 资源块
+    SCS = 120;  % 子载波间隔，15 | 30 | 60 | 120 | 240 可选
+    nSlot = 0;
+    offset = nrPerfectTimingEstimate(pathGains,pathFilters);
+    hest = nrPerfectChannelEstimate(pathGains,pathFilters, NRB,SCS,nSlot,offset,sampleTimes);
+    size(hest)
+    hest(1, 1, 1, 1)
+    figure;
+    surf(abs(hest(:,:,2, 1)).^2);
+    shading('flat');
+    xlabel('OFDM Symbols');
+    ylabel('Subcarriers');
+    zlabel('|H|');
+    title('Channel Magnitude Response');
+    
+    x = size(hest);
+    tj = zeros(x(1)*x(2), 1);
+    for i = 1:x(1)
+        for j = 1:x(2)
+            tj((i-1)*x(2)+j) = cond(squeeze(hest(i,j, :, :)));
+        end
+    end
+    histogram(tj, 100)    
+\end{lstlisting}

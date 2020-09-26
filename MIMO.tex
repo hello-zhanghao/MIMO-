@@ -7,7 +7,15 @@
 \usepackage{tikz}  % Tikz绘图包，基于底层的pgf
 \usepackage{graphicx}      % 插入图片引用宏包
 \usepackage{listingsutf8}  % 插入代码使用的宏包
-\usepackage{color}         % 颜色宏包    
+\usepackage{color}         % 颜色宏包  
+\usepackage{subfigure}     % 图片并排排列
+\usepackage{bm}%专门处理数学粗体的bm宏包  
+\usepackage{amsmath, amssymb}  % 
+\usepackage{mathrsfs}
+% \usetikzlibrary{fadings}
+
+% \tikzfading[name=fade out, inner color=transparent!0, outer color=transparent!100]
+
 
 \graphicspath{{figures/}}  % 指定图片目录, 与graphicx宏包一起使用
 \setmainfont{Times New Roman}  % 设置英文字体 
@@ -42,8 +50,10 @@
 % \input{contents/MIMO信道.tex}
 % \input{contents/MIMO信道估计.tex}
 % \input{contents/MIMO信道反馈.tex}
-% \input{contents/MIMO检测.tex}
+\input{contents/MIMO检测.tex}
 \input{contents/MIMO预编码.tex}
+% \input{contents/AMP算法.tex}
+% \input{contents/MIMO上行.tex}
 \input{contents/Latex语法学习.tex}
 
 

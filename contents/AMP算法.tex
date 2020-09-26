@@ -1,0 +1,68 @@
+\section{AMP算法}
+\href{https://krzakala.github.io/cargese.io/AMP_Tutorial_18.pdf}{参考资料}
+\subsection{Model}
+\begin{eqnarray}
+    y=Ax+w
+\end{eqnarray}
+问题{\color{red}{怎么从y和A估计x，使得x的估计和x间在某一准则下最小}}
+\subsection{Unconstrained Least Squares Estimation}
+\begin{equation}
+    \hat{x}=\underset{x}{\arg min}\frac{1}{2}\|y-Ax\|^2=(A^TA)^{-1}A^Ty
+\end{equation}
+\subsection{Regularized Least Squares Estimation}
+\begin{equation}
+    \hat{x}=\underset{x}{\arg min}\frac{1}{2}\|y-Ax\|^2+{\color{purple}{\phi(x)}}
+\end{equation}
+\begin{itemize}
+    \item L2 $\phi(x)=\lambda\|x\|^2_2$
+    \item L1 $\phi(x)=\lambda\|x\|_1$
+\end{itemize}
+\subsection{Proximal Operators}
+\subsection{Majorization-Minimization}
+\begin{itemize}
+    \item 假设最小化$f(x)$很难直接求解
+    \item 在每个点$x_k$,可以找到一个函数majorizing function$Q(x,x_k)$:
+    \begin{itemize}
+        \item $Q(x,x_k)\geq for\ all\ x$
+        \item $Q(x_k,x_k)=f(x_k)$
+    \end{itemize}
+    \item Majorization-Minimization algorithm: \par 
+    Iteratively minimize the majorizing function:$x_{k+1}=\underset{x}{\arg min}Q(x,x_k)$
+    \item {\color{purple}{Theorem}}: MM monotonically decreases the true objective: 
+    $$f(x_k)=Q(x_k,x_k)\geq Q(x_{k+1},x_k)\geq f(x_{k+1})$$
+\end{itemize}
+\subsection{MM for Regularized LS}
+RLS可以重写为：
+\begin{equation}
+    \hat{x}=\underset{x}{\arg min}[g(x)+\phi(x)]
+\end{equation}
+其中$g(x)=\frac{1}{2}\|y-Ax\|^2$
+定义majorizing 函数为：
+\begin{equation}
+    Q(x,x_k)=g(x_k)+\nabla g(x_k)\cdot (x-x_k)+\frac{1}{2\alpha}\|x-x_k\|^2+\phi(x)
+\end{equation}
+很容易证明
+\begin{itemize}
+    \item $Q(x_k,x_k)=g(x_k)+h(x_k)=f(x_k)$
+    \item $Q(x,x_k)\geq f(x_k) for all x()$当$\alpha$足够小
+\end{itemize}
+因此，\begin{equation}
+    x_{k+1}=\underset{x}{\arg min}Q(x,x_k)
+\end{equation}
+\subsection{ISTA Algorithm}
+\begin{equation}
+    \begin{aligned}
+    x_{k+1}&=\underset{x}{\arg min}Q(x,x_k) \\
+    &=\underset{x}{\arg min}\ g(x_k)+\nabla g(x_k)  \cdot  (x-x_k)+\frac{1}{2\alpha}\|x-x_k\|^2+\phi(x)
+    \end{aligned}
+\end{equation}
+{\color{purple}{Iterative Soft Threshold Algorithm:}}
+\begin{itemize}
+    \item Gradient : $r_k=x_k-\alpha \nabla g(x_k)=x_k-\alpha A^T(Ax_k-y)$
+    \item Proximal step: $x_{k+1}=\text{Prox}_{\phi}(r_k,\alpha)=\underset{x}{\arg min}\ [\phi(x)+\frac{1}{2\alpha}\|r_k-x\|^2] $
+\end{itemize}
+理解Prox操作的意义
+\subsection{AMP}
+\begin{figure}
+    \includegraphics[width=0.99\textwidth]{AMP和ISTA.PNG}
+\end{figure}

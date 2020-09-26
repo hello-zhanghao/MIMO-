@@ -1,18 +1,20 @@
-\section{MIMO检测}
+\part{MIMO检测}
+\section{点对点MIMO检测}
+\subsection{系统模型}
 $$
 y=Hx+z
 $$
 
-\begin{enumerate}
-    \item  参考论文\cite{2019Massive} \par
-        MIMO综述，主要综述了关于MIMO检测的问题
-    \item 参考论文2
-\end{enumerate}
+% \begin{enumerate}
+%     \item  参考论文\cite{2019Massive} \par
+%         MIMO综述，主要综述了关于MIMO检测的问题
+%     \item 参考论文2
+% \end{enumerate}
 \subsection{经典检测方法}
-假设接收端已知CSI $H^{UL}$，系统模型表示为：
-\begin{equation}
-y_{MAC}=H^{UL}x+z 简化为 y=Hx+z=H_1x_1+H_2x_2+\cdots+H_Kx_K+z
-\end{equation}
+% 假设接收端已知CSI $H^{UL}$，系统模型表示为：
+% \begin{equation}
+% y_{MAC}=H^{UL}x+z 简化为 y=Hx+z=H_1x_1+H_2x_2+\cdots+H_Kx_K+z
+% \end{equation}
 \subsubsection{MF检测}
 \begin{equation}
 \hat{x}_{MF}=H^Hy
@@ -37,8 +39,8 @@ y_{MAC}=H^{UL}x+z 简化为 y=Hx+z=H_1x_1+H_2x_2+\cdots+H_Kx_K+z
 MMSE检测是优化问题的解：
 \begin{equation}
 \begin{aligned}
-    G_{MMSE}&=\underset{G\in C^{N \times K}}{\arg min}\|x-Gy\|^2 \\
-    &= \underset{G}{\arg min}E\{\|Gy-x\|^2\}=(H^HH+\sigma^2I_{Nt*K})^{-1}H^H
+    G_{MMSE}&=\underset{G\in C^{N_t \times N_r}}{\arg min}\|x-Gy\|^2 \\
+    &= \underset{G}{\arg min}E\{\|Gy-x\|^2\}=(H^HH+\sigma^2I_{Nt})^{-1}H^H
 \end{aligned}
 \end{equation}
 于是，MMSE检测表达式为：
@@ -96,3 +98,4 @@ Wu et al.\cite{2013Approximate} 提出了基于近似求逆方法的上行检测
 \subsubsection{Successive Interference Cancellation}
 \subsubsection{Lattice Reduction-Aided Algorithms}
 \subsubsection{Sphere Decoder}
+\subsection{基于AI的MIMO检测方法}
